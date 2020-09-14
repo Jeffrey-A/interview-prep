@@ -1,0 +1,59 @@
+class Node {
+	constructor(value, next=null) {
+		this.value = value;
+		this.next = next; 
+	}
+}
+
+class LinkedList {
+	constructor(node) {
+		this.head = node;
+	}
+
+	print() {
+		
+		let curr = this.head;
+	 	while(curr) {
+		 console.log(curr.value);
+		 curr = curr.next;
+	 	} 
+
+	}
+
+	append(value) {
+		const newNode = new Node(value);
+		let curr = this.head;
+
+		while(curr.next) {
+			curr = curr.next;
+		}
+		curr.next = newNode;
+	}
+
+	reverse() {
+		let first = null;
+		let second = this.head;
+
+		while(second) {
+			let temp = second.next;
+			
+			second.next = first;
+			first = second;
+			second = temp;
+		}
+
+		this.head = first;
+	}
+
+	
+}
+
+const n = new Node(1);
+const ll = new LinkedList(n);
+ll.append(2);
+ll.append(3);
+ll.append(4);
+ll.append(5);
+ll.print();
+ll.reverse();
+ll.print();
