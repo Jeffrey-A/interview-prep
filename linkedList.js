@@ -1,51 +1,47 @@
 class Node {
-	constructor(value, next=null) {
-		this.value = value;
-		this.next = next; 
-	}
+  constructor(value, next = null) {
+    this.value = value;
+    this.next = next;
+  }
 }
 
 class LinkedList {
-	constructor(node) {
-		this.head = node;
-	}
+  constructor(node) {
+    this.head = node;
+  }
 
-	print() {
-		
-		let curr = this.head;
-	 	while(curr) {
-		 console.log(curr.value);
-		 curr = curr.next;
-	 	} 
+  print() {
+    let curr = this.head;
+    while (curr) {
+      console.log(curr.value);
+      curr = curr.next;
+    }
+  }
 
-	}
+  append(value) {
+    const newNode = new Node(value);
+    let curr = this.head;
 
-	append(value) {
-		const newNode = new Node(value);
-		let curr = this.head;
+    while (curr.next) {
+      curr = curr.next;
+    }
+    curr.next = newNode;
+  }
 
-		while(curr.next) {
-			curr = curr.next;
-		}
-		curr.next = newNode;
-	}
+  reverse() {
+    let first = null;
+    let second = this.head;
 
-	reverse() {
-		let first = null;
-		let second = this.head;
+    while (second) {
+      let temp = second.next;
 
-		while(second) {
-			let temp = second.next;
-			
-			second.next = first;
-			first = second;
-			second = temp;
-		}
+      second.next = first;
+      first = second;
+      second = temp;
+    }
 
-		this.head = first;
-	}
-
-	
+    this.head = first;
+  }
 }
 
 const n = new Node(1);
