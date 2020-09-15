@@ -42,6 +42,21 @@ class LinkedList {
 
     this.head = first;
   }
+
+  reverseRec() {
+    this.head = this.__helper(this.head);
+  }
+
+  __helper(node) {
+    if (!node || !node.next) {
+      return node;
+    }
+
+    const newHead = this.__helper(node.next);
+    node.next.next = node;
+    node.next = null;
+    return newHead;
+  }
 }
 
 const n = new Node(1);
