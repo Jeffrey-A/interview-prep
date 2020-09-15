@@ -57,6 +57,23 @@ class LinkedList {
     node.next = null;
     return newHead;
   }
+
+  remove(x) {
+    if (this.head.value === x) {
+      this.head = this.head.next;
+      return;
+    }
+
+    let curr = this.head;
+
+    while (curr) {
+      if (curr.next && curr.next.value === x) {
+        curr.next = curr.next.next;
+      }
+
+      curr = curr.next;
+    }
+  }
 }
 
 const n = new Node(1);
