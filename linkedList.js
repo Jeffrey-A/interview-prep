@@ -74,6 +74,22 @@ class LinkedList {
       curr = curr.next;
     }
   }
+  oddEven() {
+    let odd = this.head;
+    let even = odd.next;
+
+    let evenHead = even;
+
+    while (even && even.next) {
+      odd.next = even.next;
+      odd = odd.next;
+
+      even.next = odd.next;
+      even = even.next;
+    }
+
+    odd.next = evenHead;
+  }
 }
 
 const n = new Node(1);
