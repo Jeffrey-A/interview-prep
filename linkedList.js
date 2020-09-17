@@ -90,6 +90,21 @@ class LinkedList {
 
     odd.next = evenHead;
   }
+
+  isPalindrome() {
+    if (this.head == null) return this.head;
+    // fill the stack
+    let [node, stack] = [this.head, []];
+    while (node) {
+      stack.push(node.val);
+      node = node.next;
+    }
+    // play backwards
+    for (let i = 0; i < stack.length; i++) {
+      if (stack[i] != stack[stack.length - 1 - i]) return false;
+    }
+    return true;
+  }
 }
 
 const n = new Node(1);
