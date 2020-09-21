@@ -61,11 +61,55 @@ class Tree {
     this.post_helper(node.right, ans);
     ans.push(node.val);
   }
+
+  bfs() {
+    const nodes = [];
+    const ans = new Set();
+
+    this.bfs_helper(this.root, nodes);
+
+    nodes.forEach((node) => {
+      ans.add(node.val);
+
+      if (node.left) {
+        ans.add(node.left.val);
+      }
+
+      if (node.right) {
+        ans.add(node.right.val);
+      }
+    });
+
+    return Array.from(ans);
+  }
+
+  bfs_helper(root, nodes) {
+    
+    if (!root) {
+      return null;
+    }
+    nodes.push(root);
+    this.bfs_helper(root.left, nodes);
+    this.bfs_helper(root.right, nodes);
+  }
 }
 
-const n2 = new Node(2, new Node(3));
-const root = new Node(1, null, n2);
+/*
+#     a
+#    / \
+#   b   c
+#  / \   \
+# d   e   f
+*/
+
+const n2 = new Node('b', new Node('d'), new Node('e'));
+
+const n3 = new Node('c', null, new Node('f'));
+
+const root = new Node('a', n2, n3);
 
 const tree = new Tree(root);
-console.log(tree.preOrder());
-console.log(tree.inOrder());
+console.log('pre', tree.preOrder()); // a, b, d, e, c, f
+console.log('in', tree.inOrder()); // d, b, e, a, c, f
+console.log('post', tree.postOrder()); // d, e, b, f, c, a
+console.log('bfs', tree.bfs());
