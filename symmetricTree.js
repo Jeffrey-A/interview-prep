@@ -37,3 +37,22 @@ function helper(root1, root2) {
     helper(root1.right, root2.left)
   );
 }
+
+function isSymmetricIter(root) {
+    const queue = [root, root];
+    
+    while(queue.length) {
+        const root1 = queue.shift();
+        const root2 = queue.shift();
+        if(!root1 && !root2) continue;
+        if(!root1 || !root2) return false;
+        if(root1.val !== root2.val) return false;
+        
+        queue.push(root1.left);
+        queue.push(root2.right);
+        queue.push(root1.right);
+        queue.push(root2.left);
+    }
+    
+    return true;  
+};
