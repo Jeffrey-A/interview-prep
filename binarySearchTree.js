@@ -21,15 +21,44 @@ should return NULL.
 */
 
 function searchBST(root, val) {
-    if (!root) return null;
-    
-    if(root.val == val) {
-        return root;
-    }
-    
-    if ( val < root.val) {
-        return searchBST(root.left, val);
-    } else {
-        return searchBST(root.right, val); 
-    }
-};
+  if (!root) return null;
+
+  if (root.val == val) {
+    return root;
+  }
+
+  if (val < root.val) {
+    return searchBST(root.left, val);
+  } else {
+    return searchBST(root.right, val);
+  }
+}
+
+/* 
+Insert into a Binary Search Tree
+For example,
+Given the tree:
+ 4
+/ \
+2 7
+/ \
+1 3
+And the value to insert: 5
+You can return this binary search tree:
+
+     4
+   /  \
+  2    7
+ / \  /
+1  3 5
+*/
+function insertIntoBST(root, val) {
+  if (!root) {
+    return new TreeNode(val);
+  } else if (val < root.val) {
+    root.left = insertIntoBST(root.left, val);
+  } else if (val > root.val) {
+    root.right = insertIntoBST(root.right, val);
+  }
+  return root;
+}
