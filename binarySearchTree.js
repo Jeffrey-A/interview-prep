@@ -62,3 +62,41 @@ function insertIntoBST(root, val) {
   }
   return root;
 }
+
+
+/* Balance a Binary Search Tree
+
+Given a binary search tree, return a balanced binary search tree with the same node values.
+
+A binary search tree is balanced if and only if the depth of the two subtrees of every node never differ by more than 1.
+
+If there is more than one answer, return any of them.
+
+*/
+
+function balanceBST(root) {
+    const nodes = [];
+    inOrderTraversal(root, nodes);
+    return createBST(nodes);   
+};
+
+function createBST(nodes) {
+    if(!nodes.length) return null;
+    
+    const mid = Math.floor((nodes.length - 1) / 2);
+    
+    const node = new TreeNode(nodes[mid]);
+    
+    node.left = createBST(nodes.slice(0, mid));
+    node.right = createBST(nodes.slice(mid+1));
+ 
+    return node;
+}
+
+function inOrderTraversal(node, nodes) {
+    if(!node) return;
+    
+    inOrderTraversal(node.left, nodes);
+    nodes.push(node.val);
+    inOrderTraversal(node.right, nodes);
+}
