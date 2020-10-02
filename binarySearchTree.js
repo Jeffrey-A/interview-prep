@@ -63,7 +63,6 @@ function insertIntoBST(root, val) {
   return root;
 }
 
-
 /* Balance a Binary Search Tree
 
 Given a binary search tree, return a balanced binary search tree with the same node values.
@@ -75,28 +74,66 @@ If there is more than one answer, return any of them.
 */
 
 function balanceBST(root) {
-    const nodes = [];
-    inOrderTraversal(root, nodes);
-    return createBST(nodes);   
-};
+  const nodes = [];
+  inOrderTraversal(root, nodes);
+  return createBST(nodes);
+}
 
 function createBST(nodes) {
-    if(!nodes.length) return null;
-    
-    const mid = Math.floor((nodes.length - 1) / 2);
-    
-    const node = new TreeNode(nodes[mid]);
-    
-    node.left = createBST(nodes.slice(0, mid));
-    node.right = createBST(nodes.slice(mid+1));
- 
-    return node;
+  if (!nodes.length) return null;
+
+  const mid = Math.floor((nodes.length - 1) / 2);
+
+  const node = new TreeNode(nodes[mid]);
+
+  node.left = createBST(nodes.slice(0, mid));
+  node.right = createBST(nodes.slice(mid + 1));
+
+  return node;
 }
 
 function inOrderTraversal(node, nodes) {
-    if(!node) return;
-    
-    inOrderTraversal(node.left, nodes);
-    nodes.push(node.val);
-    inOrderTraversal(node.right, nodes);
+  if (!node) return;
+
+  inOrderTraversal(node.left, nodes);
+  nodes.push(node.val);
+  inOrderTraversal(node.right, nodes);
+}
+
+/* 
+Given a binary tree, determine if it is a valid binary search tree (BST).
+
+Assume a BST is defined as follows:
+
+The left subtree of a node contains only nodes with keys less than the node's key.
+The right subtree of a node contains only nodes with keys greater than the node's key.
+Both the left and right subtrees must also be binary search trees.
+*/
+
+function isValidBST(root) {
+  const nodes = [];
+
+  inOrder(root, nodes);
+  console.log(nodes);
+
+  let prev = 0;
+  let next = 1;
+
+  while (next < nodes.length) {
+    if (nodes[prev] >= nodes[next]) {
+      return false;
+    }
+    prev++;
+    next++;
+  }
+
+  return true;
+};
+
+function inOrder(node, nodes) {
+  if (!node) return null;
+
+  inOrder(node.left, nodes);
+  nodes.push(node.val);
+  inOrder(node.right, nodes);
 }
