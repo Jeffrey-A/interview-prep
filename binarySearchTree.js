@@ -128,7 +128,7 @@ function isValidBST(root) {
   }
 
   return true;
-};
+}
 
 function inOrder(node, nodes) {
   if (!node) return null;
@@ -137,3 +137,28 @@ function inOrder(node, nodes) {
   nodes.push(node.val);
   inOrder(node.right, nodes);
 }
+
+function isValidBSTIterative(root) {
+  if (!root) return true;
+  if (!root.left && !root.right) return true;
+
+  const stack = [];
+  let inOrder = Number.MIN_SAFE_INTEGER;
+
+  while (root || stack.length) {
+    while (root) {
+      stack.push(root);
+      root = root.left;
+    }
+
+    root = stack.pop();
+
+    if (root.val <= inOrder) return false;
+
+    inOrder = root.val;
+
+    root = root.right;
+  }
+
+  return true;
+};
