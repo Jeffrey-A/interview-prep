@@ -116,3 +116,44 @@ ll.append(5);
 ll.print();
 ll.reverse();
 ll.print();
+
+/* 
+Add Two Numbers
+
+You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order, and each of their nodes contains a single digit. Add the two numbers and return the sum as a linked list.
+
+You may assume the two numbers do not contain any leading zero, except the number 0 itself.
+
+*/
+
+function addTwoNumbers(l1, l2) {
+  const num1 = convertLinkedListToNum(l1);
+  const num2 = convertLinkedListToNum(l2);
+
+  const answer = reverseStr(num1 + num2 + "");
+
+  const node = new ListNode(answer[0]);
+  let lastNode = node;
+
+  for (let i = 1; i < answer.length; i++) {
+    const newNode = new ListNode(answer[i]);
+    lastNode.next = newNode;
+    lastNode = lastNode.next;
+  }
+
+  return node;
+}
+
+function reverseStr(str) {
+  return str.split("").reverse().join("");
+}
+
+function convertLinkedListToNum(node) {
+  let numRep = "";
+  let curr = node;
+  while (curr) {
+    numRep += curr.val;
+    curr = curr.next;
+  }
+  return BigInt(reverseStr(numRep), 10);
+}
