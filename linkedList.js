@@ -157,3 +157,48 @@ function convertLinkedListToNum(node) {
   }
   return BigInt(reverseStr(numRep), 10);
 }
+
+// Optimized version
+// time --> O(n + m)
+// space --> O(n)
+function addTwoNumbers(l1, l2) {
+  let num1 = l1;
+  let num2 = l2;
+
+  let c = 0;
+  let sum = null;
+  let driver = null;
+
+  while (num1 || num2) {
+    const val = num1.val + num2.val + c;
+    c = Math.floor(val / 10);
+
+    if (!sum) {
+      sum = new ListNode(val % 10);
+      driver = sum;
+    } else {
+      driver.next = new ListNode(val % 10);
+      driver = driver.next;
+    }
+
+    if (num1.next || num2.next) {
+      // one list is longer
+      if (!num1.next) {
+        num1.next = new ListNode(0);
+      }
+
+      if (!num2.next) {
+        num2.next = new ListNode(0);
+      }
+    } else if (c > 0) {
+      // add the carry at the end.
+      driver.next = new ListNode(c);
+      driver = driver.next;
+    }
+
+    num1 = num1.next;
+    num2 = num2.next;
+  }
+
+  return sum;
+}
