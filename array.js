@@ -72,7 +72,7 @@ function searchRange(nums, target) {
   }
 
   return [first, second];
-};
+}
 
 function binarySearch(nums, target) {
   let low = 0;
@@ -91,4 +91,43 @@ function binarySearch(nums, target) {
   }
 
   return -1;
+}
+
+/*
+Permutations
+
+Given a collection of distinct integers, return all possible permutations.
+
+Example:
+
+Input: [1,2,3]
+Output:
+[
+  [1,2,3],
+  [1,3,2],
+  [2,1,3],
+  [2,3,1],
+  [3,1,2],
+  [3,2,1]
+]
+*/
+
+function permute(nums) {
+  return helper(nums);
+};
+
+function helper(nums, set = [], answer = []) {
+  if (!nums.length) {
+    answer.push([...set]);
+  }
+
+  for (let i = 0; i < nums.length; i++) {
+    const availableNumbers = nums.filter((num, index) => i != index);
+    set.push(nums[i]);
+
+    helper(availableNumbers, set, answer);
+    set.pop();
+  }
+
+  return answer;
 }
