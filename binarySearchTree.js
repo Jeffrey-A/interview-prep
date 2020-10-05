@@ -161,4 +161,26 @@ function isValidBSTIterative(root) {
   }
 
   return true;
-};
+}
+
+/*
+Trim a Binary Search Tree
+
+Given the root of a binary search tree and the lowest and highest boundaries as low and high, trim the tree so that all its elements lies in [low, high]. 
+You might need to change the root of the tree, so the result should return the new root of the trimmed binary search tree.
+*/
+
+function trimBST(root, low, high) {
+  if (!root) return null;
+
+  if (root.val > high) {
+    return trimBST(root.left, low, high);
+  } else if (root.val < low) {
+    return trimBST(root.right, low, high);
+  } else {
+    root.left = trimBST(root.left, low, high);
+    root.right = trimBST(root.right, low, high);
+  }
+
+  return root;
+}
