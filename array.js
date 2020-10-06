@@ -114,7 +114,7 @@ Output:
 
 function permute(nums) {
   return helper(nums);
-};
+}
 
 function helper(nums, set = [], answer = []) {
   if (!nums.length) {
@@ -130,4 +130,52 @@ function helper(nums, set = [], answer = []) {
   }
 
   return answer;
+}
+
+/* 
+First Missing Positive
+
+Given an unsorted integer array, find the smallest missing positive integer.
+
+Your algorithm should run in O(n) time and uses constant extra space.
+
+Solution explained: https://www.youtube.com/watch?v=2QugZILS_Q8&feature=youtu.be&ab_channel=NideeshTerapalli
+*/
+
+function firstMissingPositive(nums) {
+  if (!nums.includes(1)) {
+    return 1;
+  }
+
+  if (nums.length == 1) {
+    return 2;
+  }
+
+  for (let i = 0; i < nums.length; i++) {
+    if (nums[i] <= 0 || nums[i] > nums.length) {
+      nums[i] = 1;
+    }
+  }
+
+  for (let i = 0; i < nums.length; i++) {
+    let num = Math.abs(nums[i]);
+
+    if (num == nums.length) {
+      nums[0] = -Math.abs(nums[0]);
+    } else {
+      nums[num] = -Math.abs(nums[num]);
+    }
+  }
+
+  for (let i = 1; i < nums.length; i++) {
+    if (nums[i] > 0) {
+      return i;
+    }
+  }
+
+  if (nums[0] > 0) {
+    return nums.length;
+  }
+
+  return nums.length + 1;
 }
