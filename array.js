@@ -261,3 +261,22 @@ function singleNumber(nums) {
 
   return -1;
 }
+
+/*
+And (&) --> is only true when both are true
+
+Or(|) --> is only false when both are false
+
+XOR (^) --> is only true they are different.
+
+
+also --> a ^ 0 --> a
+
+*/
+
+function singleNumber(nums) {
+  let a = 0;
+  nums.forEach(num => a ^= num);
+  return a;
+};
+
