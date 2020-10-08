@@ -234,49 +234,63 @@ function swap(nums, pos1, pos2) {
   nums[pos2] = temp;
 }
 
-/* 
-Single Number
-
-Given a non-empty array of integers nums, every element appears twice except for one. Find that single one.
-
-Follow up: Could you implement a solution with a linear runtime complexity and without using extra memory?
-*/
-
 function singleNumber(nums) {
-  const occ = {};
-
-  nums.forEach((num) => {
-    if (!occ[num]) {
-      occ[num] = 1;
-    } else {
-      occ[num] = occ[num] + 1;
-    }
-  });
-
-  const ans = Object.keys(occ).filter((key) => occ[key] == 1);
-
-  if (ans.length) {
-    return ans[0];
-  }
-
-  return -1;
+  let a = 0;
+  nums.forEach((num) => (a ^= num));
+  return a;
 }
 
 /*
-And (&) --> is only true when both are true
+Queue Reconstruction by Height
 
-Or(|) --> is only false when both are false
+Suppose you have a random list of people standing in a queue. Each person is described by a pair of integers (h, k), where h is the height of the person and k is the number of people in front of this person who have a height greater than or equal to h. Write an algorithm to reconstruct the queue.
 
-XOR (^) --> is only true they are different.
+Example
 
+Input:
+[[7,0], [4,4], [7,1], [5,0], [6,1], [5,2]]
 
-also --> a ^ 0 --> a
+Output:
+[[5,0], [7,0], [5,2], [6,1], [4,4], [7,1]]
 
 */
 
-function singleNumber(nums) {
-  let a = 0;
-  nums.forEach(num => a ^= num);
-  return a;
-};
+function reconstructQueue(people) {
+  const sorted = people.sort((a, b) => {
+    if (b[0] - a[0] == 0) {
+      return a[1] - b[1];
+    }
 
+    return b[0] - a[0];
+  });
+  const ans = [];
+
+  sorted.forEach((person) => {
+    ans.splice(person[1], 0, person);
+  });
+
+  return ans;
+}
+
+/*
+
+Approach :
+
+First sort the input array people in such a way that, persons are sorted in descending order of their height, and if multiple persons have same height, then they will be sorted in ascending order of index k. So input array [[7,0], [4,4], [7,1], [5,0], [6,1], [5,2]] will become [[7,0], [7,1], [6,1], [5,0], [5,2], [4,4]]
+
+Next iterate over the sorted array people and add the person people[i] at index people[i][1] of the list result, this solves the problem automagically.
+
+Lets see an e.g.
+
+Input array : [[7,0], [4,4], [7,1], [5,0], [6,1], [5,2]]
+After sorting : [[7,0], [7,1], [6,1], [5,0], [5,2], [4,4]]
+
+Next lets iterate over sorted array and add people[i] at index people[i][1] of list result
+result => [[7,0]]
+result => [[7,0], [7,1]]
+result => [[7,0], [6,1], [7,1]]
+result => [[5,0], [7,0], [6,1], [7,1]]
+result => [[5,0], [7,0], [5,2], [6,1], [7,1]]
+result => [[5,0], [7,0], [5,2], [6,1], [4,4], [7,1]]
+
+*/
