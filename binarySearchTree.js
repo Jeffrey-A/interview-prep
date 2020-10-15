@@ -201,7 +201,7 @@ var deleteNode = function (root, key) {
   } else if (key < root.val) {
     root.left = deleteNode(root.left, key);
   } else {
-    if (!root.left || !root.right) {
+    if (!root.left && !root.right) {
       root = null;
     } else if (root.right) {
       root.val = successor(root);
