@@ -377,7 +377,7 @@ function mergeSort(arr) {
     let i = 0;
     let j = 0;
     let k = 0;
-    // copy data in the temp arrays(left and right) to the original 
+    // copy data in the temp arrays(left and right) to the original
     while (i < left.length && j < right.length) {
       if (left[i] < right[j]) {
         arr[k] = left[i];
@@ -388,7 +388,6 @@ function mergeSort(arr) {
       }
       k++;
     }
-
 
     // One list might be greater than the other, so copy the remainder elements
     while (i < left.length) {
@@ -407,3 +406,50 @@ function mergeSort(arr) {
 }
 
 console.log(mergeSort([4, 2, 1, 3]));
+
+/*
+Word Search
+
+Given a 2D board and a word, find if the word exists in the grid.
+
+The word can be constructed from letters of sequentially adjacent cells, where "adjacent" cells are horizontally or vertically neighboring. 
+The same letter cell may not be used more than once.
+*/
+
+function exist(board, word) {
+  for (let i = 0; i < board.length; i++) {
+    for (let j = 0; j < board[i].length; j++) {
+      // find the starting character and do a depth first search
+      if (board[i][j] == word[0] && dfs(board, i, j, 0, word)) {
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
+function dfs(board, row, col, count, word) {
+  if (count == word.length) {
+    return true;
+  }
+
+  const isOutOfBounds =
+    row < 0 || row >= board.length || col < 0 || col >= board[row].length;
+
+  if (isOutOfBounds || board[row][col] != word[count]) {
+    return false;
+  }
+
+  // The same letter cell may not be used more than once.
+  const currCell = board[row][col];
+  board[row][col] = " ";
+
+  const found =
+    dfs(board, row + 1, col, count + 1, word) ||
+    dfs(board, row - 1, col, count + 1, word) ||
+    dfs(board, row, col + 1, count + 1, word) ||
+    dfs(board, row, col - 1, count + 1, word);
+
+  board[row][col] = currCell;
+  return found;
+}
