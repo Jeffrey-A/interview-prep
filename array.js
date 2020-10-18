@@ -377,7 +377,7 @@ function mergeSort(arr) {
     let i = 0;
     let j = 0;
     let k = 0;
-
+    // copy data in the temp arrays(left and right) to the original 
     while (i < left.length && j < right.length) {
       if (left[i] < right[j]) {
         arr[k] = left[i];
@@ -389,6 +389,8 @@ function mergeSort(arr) {
       k++;
     }
 
+
+    // One list might be greater than the other, so copy the remainder elements
     while (i < left.length) {
       arr[k] = left[i];
       i++;
