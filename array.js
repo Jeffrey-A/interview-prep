@@ -453,3 +453,59 @@ function dfs(board, row, col, count, word) {
   board[row][col] = currCell;
   return found;
 }
+
+/*
+Remove Comments
+*/
+
+function removeComments(source) {
+  if (!source || !source.length) {
+    return source;
+  }
+
+  let cleanWord;
+  const blockCommentStack = [];
+  const ans = [];
+
+  for (let i = 0; i < source.length; i++) {
+    const line = source[i];
+
+    if (!blockCommentStack.length) {
+      cleanWord = [];
+    }
+
+    for (let j = 0; j < line.length; j++) {
+      if (
+        j + 1 < line.length &&
+        line[j] + line[j + 1] == "/*" &&
+        !blockCommentStack.length
+      ) {
+        blockCommentStack.push("/*");
+        j++;
+        continue;
+      } else if (
+        j + 1 < line.length &&
+        line[j] + line[j + 1] == "*/" &&
+        blockCommentStack.length
+      ) {
+        blockCommentStack.pop();
+        j++;
+        continue;
+      } else if (
+        !blockCommentStack.length &&
+        j + 1 < line.length &&
+        line[j] + line[j + 1] == "//"
+      ) {
+        break;
+      } else if (!blockCommentStack.length) {
+        cleanWord.push(line[j]);
+      }
+    }
+
+    if (cleanWord && cleanWord.length && !blockCommentStack.length) {
+      ans.push(cleanWord.join(""));
+    }
+  }
+
+  return ans;
+};
