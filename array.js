@@ -508,4 +508,35 @@ function removeComments(source) {
   }
 
   return ans;
-};
+}
+
+/*
+
+Trapping Rain Water
+
+Given n non-negative integers representing an elevation map where the width of each bar is 1, compute how much water it can trap after raining.
+*/
+
+function trap(height) {
+  let left_max = 0;
+  let right_max = 0;
+  let left = 0;
+  let right = height.length - 1;
+  let ans = 0;
+
+  while (left < right) {
+    if (height[left] < height[right]) {
+      left_max > height[left]
+        ? (ans += left_max - height[left])
+        : (left_max = height[left]);
+      left++;
+    } else {
+      right_max > height[right]
+        ? (ans += right_max - height[right])
+        : (right_max = height[right]);
+      right--;
+    }
+  }
+
+  return ans;
+}
