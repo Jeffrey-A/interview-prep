@@ -191,7 +191,7 @@ Delete Node in a BST
 Given a root node reference of a BST and a key, delete the node with the given key in the BST. Return the root node reference (possibly updated) of the BST.
 
 */
-var deleteNode = function (root, key) {
+function deleteNode(root, key) {
   if (!root) {
     return null;
   }
@@ -212,7 +212,7 @@ var deleteNode = function (root, key) {
     }
   }
   return root;
-};
+}
 
 function predecessor(root) {
   root = root.left;
