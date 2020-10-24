@@ -540,3 +540,57 @@ function trap(height) {
 
   return ans;
 }
+
+/*
+Spiral Matrix
+
+Given a matrix of m x n elements (m rows, n columns), return all elements of the matrix in spiral order.
+
+Input:
+[
+ [ 1, 2, 3 ],
+ [ 4, 5, 6 ],
+ [ 7, 8, 9 ]
+]
+Output: [1,2,3,6,9,8,7,4,5]
+*/
+
+function spiralOrder(matrix) {
+  if (!matrix || matrix.length == 0) {
+    return matrix;
+  }
+
+  if (matrix.length == 1) {
+    return matrix[0];
+  }
+
+  let top = 0;
+  let left = 0;
+  let right = matrix[0].length - 1;
+  let bottom = matrix.length - 1;
+  let size = matrix.length * matrix[0].length;
+  const ans = [];
+
+  while (ans.length < size) {
+    for (let i = left; i <= right && ans.length < size; i++) {
+      ans.push(matrix[top][i]);
+    }
+    top++;
+
+    for (let i = top; i <= bottom && ans.length < size; i++) {
+      ans.push(matrix[i][right]);
+    }
+    right--;
+
+    for (let i = right; i >= left && ans.length < size; i--) {
+      ans.push(matrix[bottom][i]);
+    }
+    bottom--;
+
+    for (let i = bottom; i >= top && ans.length < size; i--) {
+      ans.push(matrix[i][left]);
+    }
+    left++;
+  }
+  return ans;
+}
